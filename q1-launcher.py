@@ -206,21 +206,49 @@ class QuakeLauncher:
 
     def on_container_resize(self, event):
         if self.current_img_path:
-            if self._after_id: self.root.after_cancel(self._after_id)
-            self._after_id = self.root.after(100, lambda: self.render_image(self.current_img_path))
+            # Cancel any pending "High Quality" render
+            if self._after_id: 
+                self.root.after_cancel(self._after_id)
+        
+            # Perform an instant low-quality resize so it tracks your mouse smoothly
+            self.render_image(self.current_img_path, fast=True)
+        
+            # Schedule the high-quality render for 300ms after you STOP resizing
+            self._after_id = self.root.after(300, lambda: self.render_image(self.current_img_path, fast=False))
 
-    def render_image(self, full_path):
+    def render_image(self, full_path, fast=False):
+
+        # 0. Safety: If path is empty or file missing, exit early
+        if not full_path or not os.path.exists(full_path):
+            return
+
         try:
+            # 1. Get container dimensions
             cont_w = self.img_container.winfo_width() - 10
             cont_h = self.img_container.winfo_height() - 10
             if cont_w < 50 or cont_h < 50: return
-            
-            img = Image.open(full_path)
-            img.thumbnail((cont_w, cont_h), Image.Resampling.LANCZOS)
-            photo = ImageTk.PhotoImage(img)
+        
+            # 2. Use cached image if available to save Disk I/O
+            if hasattr(self, 'cached_image') and self.cached_image_path == full_path:
+                img = self.cached_image
+            else:
+                img = Image.open(full_path)
+                self.cached_image = img  # Store in memory
+                self.cached_image_path = full_path
+
+            # 3. Choose resampling quality
+            # NEAREST is instant; LANCZOS is high quality but slow
+            resample_type = Image.Resampling.NEAREST if fast else Image.Resampling.LANCZOS
+        
+            # 4. Resize and display
+            img_copy = img.copy()
+            img_copy.thumbnail((cont_w, cont_h), resample_type)
+            photo = ImageTk.PhotoImage(img_copy)
+        
             self.img_label.config(image=photo, text="")
-            self.img_label.image = photo
-        except: pass
+            self.img_label.image = photo # Keep reference
+        except Exception as e:
+            print(f"Render error: {e}")
 
     def load_mods(self):
         self.mod_listbox.delete(0, tk.END)
@@ -251,6 +279,12 @@ class QuakeLauncher:
         if not sel: return
         m_name = self.mod_listbox.get(sel[0])
         m_path = os.path.join(self.base_dir.get(), m_name)
+        
+        # Clear the image cache so we don't show the old mod's image
+        self.cached_image = None
+        self.cached_image_path = None
+        
+        
         
         # self.preview_title.config(text=f"Mod: {m_name}")
         self.preview_title.config(text=f"Mod: {m_name}")
@@ -388,6 +422,13 @@ class QuakeLauncher:
         self.current_img_path = None
 
     def on_map_select(self, event):
+
+
+        # Clear cache before loading the new map preview
+        self.cached_image = None
+        self.cached_image_path = None
+
+
         # 1. Get the selected map name first
         sel = self.map_listbox.curselection()
         if not sel: 

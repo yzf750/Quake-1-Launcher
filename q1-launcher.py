@@ -171,12 +171,15 @@ class QuakeLauncher:
 
     def update_widget_colors(self, parent, colors):
         for child in parent.winfo_children():
-            # Skip settings popup if open
+            # 1. Skip the settings popup
             if isinstance(child, tk.Toplevel):
                 continue
-                
+            
+            # 2. Skip internal Menu widgets (this is what causes the flickering)
+            if isinstance(child, tk.Menu):
+                continue
+
             try:
-                # Force Listboxes (the most important part for the theme)
                 if isinstance(child, tk.Listbox):
                     child.configure(
                         bg=colors["bg"], 
@@ -184,24 +187,21 @@ class QuakeLauncher:
                         selectbackground=colors["select"],
                         font=self.ui_font
                     )
-                
-                # Force Frames to White
+            
                 elif isinstance(child, (tk.Frame, tk.LabelFrame, tk.PanedWindow)):
                     child.configure(bg="white")
                     if isinstance(child, tk.LabelFrame):
                         child.configure(fg="black")
 
-                # Labels on white background
                 elif isinstance(child, tk.Label):
-                    # Keep preview text green/matrix if it's the "No Preview" label
                     if child == self.img_label:
                         child.configure(bg="black", fg="#00ff00")
                     else:
                         child.configure(bg="white", fg="black")
 
-                # Recursion to find hidden nested widgets
+                # Recursion
                 self.update_widget_colors(child, colors)
-            except Exception as e:
+            except Exception:
                 pass
 
     def on_container_resize(self, event):
@@ -728,9 +728,18 @@ class QuakeLauncher:
             
             time.sleep(2) # Poll every 2 seconds
 
+    #def display_new_screenshot(self, path):
+        #self.current_img_path = path
+        #self.render_image(path)
+
     def display_new_screenshot(self, path):
+        # Force the cache to clear so the new file is loaded from disk
+        self.cached_image = None
+        self.cached_image_path = None
+    
         self.current_img_path = path
         self.render_image(path)
+
 
 
     def get_map_stats(self, entity_data, skill):

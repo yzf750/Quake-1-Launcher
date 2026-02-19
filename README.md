@@ -1,7 +1,7 @@
 # Quake-1-Launcher
 A Quake 1 launcher in Python, Vibe Coded using Gemini
 
-Simple up and running...
+Simple up and running for Debian based distros
 
 ```bash
 sudo apt update

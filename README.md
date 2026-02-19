@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 Copy or Move the file to your Quake directory
 
-cd <quake directory>
+cd <Your quake directory>
 python3 ./q1-launcher.py
 
 Configure Engine, Quake Root.

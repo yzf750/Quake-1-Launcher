@@ -954,7 +954,6 @@ class QuakeLauncher:
 
         self.root.after(400, restore_map)
 
-
 if __name__ == "__main__":
     root = tk.Tk()
     app = QuakeLauncher(root)

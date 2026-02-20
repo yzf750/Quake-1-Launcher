@@ -14,6 +14,7 @@ pip install -r requirements.txt
 Copy or Move the-quaker-deliverance.py to your Quake directory
 
 cd "YourQuakeDirectory"
+
 python3 ./the-quaker-deliverance.py
 
 Configure Engine, Quake Root.

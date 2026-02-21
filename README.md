@@ -9,11 +9,26 @@ cd ./The-Quaker-Deliverance
 sudo apt update
 sudo apt install python3-tk python3-pil.imagetk
 pip install -r requirements.txt
+cp the-quaker-deliverence.py thequake.png /path/to/your/quake/directory/
 ```
 
 Copy or Move the-quaker-deliverance.py and thequaker.png to your Quake directory
 
+
+
 cd "YourQuakeDirectory"
+
+```bash
+# Make script executable
+chmod +x myscript.py
+./the-quaker-deliverence.py
+
+# or run using python
+
+python3 ./the-quaker-deliverence.py
+
+```
+
 
 python3 ./the-quaker-deliverance.py
 

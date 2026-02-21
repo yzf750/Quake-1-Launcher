@@ -20,7 +20,7 @@ cd "YourQuakeDirectory"
 
 ```bash
 # Make script executable
-chmod +x myscript.py
+chmod +x ./the-quaker-deliverence.py
 ./the-quaker-deliverence.py
 
 # or run using python

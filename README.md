@@ -1,5 +1,6 @@
 # The Quaker Deliverance
-A Quake 1 launcher in Python, Vibe Coded using Google Gemini
+A Quake 1 launcher written in python.
+Vibe Coded using Google Gemini
 
 ![tqd](images/the-quaker-deliverance.png)
 

@@ -2,6 +2,9 @@
 A Quake 1 launcher in Python, Vibe Coded using Google Gemini
 
 
+Features
+-----------
+
 ![tqd](images/the-quaker-deliverance.png)
 
 

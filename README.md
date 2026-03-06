@@ -31,9 +31,10 @@ Settings
 
 Launch Mod or Map
 -----------------
-- Slect "Skill"
+- Select "Skill"
 - Add any "Extra CLI Args" such as -heapsize , -startwindowed. CLI Args are saved on a per Mod basis. 
-- Click Mod, click map, click laucnh
+- Double click Mod or Map to launch.
+- Click Mod, click map, then click LAUNCH.
 
 
 Launch Saved Game

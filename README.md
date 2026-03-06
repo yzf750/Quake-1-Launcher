@@ -3,7 +3,15 @@ A Quake 1 launcher in Python, Vibe Coded using Google Gemini
 
 
 Features
------------
+--------
+
+Automate screenshots
+- When you take a svreenshot 
+
+Launch Quake 1 games 
+
+
+
 
 ![tqd](images/the-quaker-deliverance.png)
 

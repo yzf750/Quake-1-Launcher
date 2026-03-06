@@ -31,7 +31,7 @@ except ImportError:
         "sudo apt install python3-pil.imagetk")
     sys.exit(1)
 
-VERSION = "1.1.5"
+VERSION = "1.1.6"
 CONFIG_FILE = "the-quaker-deliverance.json"
 
 
@@ -77,6 +77,8 @@ class QuakeLauncher:
         }
 
         self.current_theme = self.themes.get(self.active_theme_name, self.themes["Quake Dark"])
+        
+        self.root.bind("<Return>", lambda e: self.launch_game())
 
         # 2. Initialize Variables
         self.font_size = self.config.get("font_size", 12)
@@ -166,6 +168,7 @@ class QuakeLauncher:
         self.mod_listbox = tk.Listbox(mod_col, exportselection=False)
         self.mod_listbox.pack(fill="both", expand=True, pady=5)
         self.mod_listbox.bind('<<ListboxSelect>>', self.on_mod_select)
+        self.mod_listbox.bind("<Double-Button-1>", self.on_double_click_launch)
 
         # Map Column
         map_col = tk.Frame(self.paned)
@@ -174,6 +177,7 @@ class QuakeLauncher:
         self.map_listbox = tk.Listbox(map_col, exportselection=False)
         self.map_listbox.pack(fill="both", expand=True, pady=5)
         self.map_listbox.bind('<<ListboxSelect>>', self.on_map_select)
+        self.map_listbox.bind("<Double-Button-1>", self.on_double_click_launch)
 
         # Preview Column
         preview_col = tk.Frame(self.paned)
@@ -1221,6 +1225,23 @@ class QuakeLauncher:
                 label=save_display_name, 
                 command=lambda value=save_display_name: self.save_game.set(value)
             )
+
+    def on_double_click_launch(self, event):
+        # Ensure a selection exists
+        widget = event.widget
+        selection = widget.curselection()
+
+        if not selection:
+            return
+
+        # If double-clicked on mod list, make sure map selection updates
+            if widget == self.mod_listbox:
+                self.on_mod_select(None)
+
+        # Launch the game
+        self.launch_game()
+
+
 
 
 if __name__ == "__main__":

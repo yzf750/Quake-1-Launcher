@@ -5,7 +5,6 @@ A Quake 1 launcher "Vibe Coded" in python using Google Gemini.
 
 Features
 --------
-
 - Takes "Real Time" screenshots. 
 - Launches Mods or sperate Maps.
 - Supports Saved Games.
@@ -18,6 +17,7 @@ Features
 - When you click a Mod a random screenshot will appear.
 - Saves the last Mod and Map used when closing the app.
 
+
 Configuration
 -------------
 - Browse for Quake Engine (Executable)
@@ -25,46 +25,39 @@ Configuration
 
 Settings
 --------
-- Select Threme
+- Select Theme.
 - Select font size.
-
 
 Launch Mod or Map
 -----------------
 - Select "Skill"
 - Add any "Extra CLI Args" such as -heapsize , -startwindowed. CLI Args are saved on a per Mod basis. 
-- Double click Mod or Map to launch. (or press "Enter")
-- Click Mod, click map, then click LAUNCH.
-
+- Double click Mod or Map to launch. Click LAUNCH (or press "Enter").
 
 Launch Saved Game
 -----------------
-- Saved games are sorted by most recent first
-- Load a Saved Game and the app will show you a scrrsnhot of the map from the saved game.
-- Click "Load Save" 
-- Click Laucnch
-
+- Saved games are sorted by most recent date first.
+- Load a Saved Game and the app will show you a screenshot of the map from the saved game.
+- Click "Load Save" to select your saved game.
+- Press Enter or click Launch.
 
 Screenshots
 -----------
-- If you take a new screenshot your previous screensot for that map will be over written.
-- When you click a Mod Any existing screenshots for that Mod are moved to the "oldscreenshots" direcory.
-- Take a scrrenshot using your usual key (default is F12)
-- Application monitors Mod direcory for new screenshots, if you take a scrrsnhot it will be renaned to the map name you launched and moved to the "previres" direcory
-- Right click a screensjpt fopr an option to delete it or open the "previews" direcory
+- When you click a Mod any existing screenshots (from before launching the app) are moved to the "oldscreenshots" directory as a backup.
+- Take a screenshot using your usual key (default is F12).
+- If you take a new screenshot your previous screenshot for that map will be over written.
+- The application monitors the Mod directory for new screenshots, if you take a scrrsnhot it will be renaned to the map name you launched and moved to the "previews" directory.
+- Right click a screenshot for an option to delete it or open the "previews" direcory for the selected Mod.
 
 Filter
 ------
-- You can filter for Mods and Maps by typing in the textbox at the top of each column
+- You can filter for Mods and Maps by typing in the textbox at the top of each column.
 
 Refresh Mods and Maps 
 ---------------------
 - Right click any Mod in the Mods column
-- "Force Maps Rescan - (Clear Cache)" will scan for any new maps added to the direcory
-- "Refresh Mods List" - Will updated any Mods you have added (saves you from having to restart the app)
-
-
-
+  - "Force Maps Rescan - (Clear Cache)" will scan for any new maps added to the direcory
+  - "Refresh Mods List" - Will updated any Mods you have added (saves you from having to restart the app)
 
 Simple up and running for Debian based distros
 ----------------------------------------------
